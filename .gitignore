@@ -1,0 +1,6 @@
+.build/
+.swiftpm/
+*.tar.gz
+Sources/BuildInfo.swift
+.pytest_cache/
+__pycache__/

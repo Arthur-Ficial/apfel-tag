@@ -1,0 +1,77 @@
+.TH APFEL-TAG 1 "2026-06-02" "apfel-tag @VERSION@" "User Commands"
+.SH NAME
+apfel-tag \- classify piped text into tags using Apple's on-device content-tagging model
+.SH SYNOPSIS
+.B apfel-tag
+.RI [ options ]
+.br
+.B echo
+.RI \(dq text \(dq " | " apfel-tag
+.RI [ options ]
+.SH DESCRIPTION
+.B apfel-tag
+reads text from standard input and classifies it into short labels using
+Apple's on-device content-tagging model
+.RB ( SystemLanguageModel "(useCase: .contentTagging))."
+Inference runs entirely on-device on Apple Silicon Macs with Apple
+Intelligence enabled. No data leaves the machine.
+.PP
+It is a pipe-first UNIX tool: text on standard input, tags on standard output
+(one per line, or JSON).
+.SH OPTIONS
+.TP
+.BR \-o ", " \-\-output " " \fIformat\fR
+Output format:
+.B plain
+(one tag per line, default) or
+.BR json " (" {\(dqtags\(dq:[...]} ).
+.TP
+.BI \-\-kind " kind"
+Label category:
+.BR tags " (default), " topics ", " emotions ", " actions ", or " all .
+.B all
+emits topics, emotions, and actions together.
+.TP
+.BI \-\-max-tags " n"
+Cap the number of tags returned to
+.IR n .
+.TP
+.B \-\-permissive
+Relax content guardrails. Use when benign input is refused.
+.TP
+.BR \-q ", " \-\-quiet
+Suppress non-essential output.
+.TP
+.B \-\-no-color
+Disable colored output. Also honors
+.BR NO_COLOR .
+.TP
+.BR \-h ", " \-\-help
+Show help and exit.
+.TP
+.BR \-v ", " \-\-version
+Show version and exit.
+.SH "EXIT STATUS"
+.TP
+.B 0
+Tags produced.
+.TP
+.B 1
+Runtime error (model unavailable or refusal).
+.TP
+.B 2
+No input piped, or invalid arguments.
+.SH ENVIRONMENT
+.TP
+.B NO_COLOR
+When set to any non-empty value, disables ANSI color output.
+.SH EXAMPLES
+echo \(dqThe headphones sound amazing.\(dq | apfel-tag
+.PP
+echo \(dqKubernetes pods keep crashing.\(dq | apfel-tag -o json | jq -r \(aq.tags[]\(aq
+.PP
+echo \(dqA thrilling, scary movie night.\(dq | apfel-tag --kind emotions
+.SH "SEE ALSO"
+.BR apfel (1)
+.SH AUTHOR
+Franz Enzenhofer
