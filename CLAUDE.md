@@ -1,5 +1,9 @@
 # apfel-tag - project instructions
 
+## The Golden Goal
+
+apfel-tag does ONE thing: turn text on stdin into content tags on stdout, classified 100% on-device by Apple's `SystemLanguageModel(useCase: .contentTagging)`. It IS a focused, pipe-friendly UNIX tool - plain or JSON output, correct exit codes, label kinds (tags, topics, emotions, actions), no API keys and no network. It is NOT a chat tool, an HTTP server, an MCP host, or a general FoundationModels CLI - that is what its sister tool [apfel](https://github.com/Arthur-Ficial/apfel) is for. Every decision is scored against tagging text cleanly from the command line; anything that grows a second product into this tool is out of scope. Distribution stays Homebrew-tap only, on-device only, honest about its limits.
+
 **On-device content tagging from the command line.** Sister tool to
 [apfel](https://github.com/Arthur-Ficial/apfel). Pipe text in, get tags out,
 classified by `SystemLanguageModel(useCase: .contentTagging)`. 100% on-device.
